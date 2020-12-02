@@ -1,0 +1,13 @@
+.item {
+  width: 100%;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #888;
+}
+
+.inputItem {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 4px;
+  border-radius: 4px;
+}

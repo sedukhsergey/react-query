@@ -1,25 +1,17 @@
 import React, { useState } from 'react';
 import Todo from 'components/Todo';
 import { useQueryCache, useQuery, useMutation } from "react-query";
-import { createTodo, getTodos, updateTodo } from "api/todos";
-
+import { createTodo, getTodos } from "api/todos";
+import styles from './styles.module.css';
 
 function Todos() {
   const cache = useQueryCache()
   const [todo, setTodo] = useState('');
-  const [isEditable, setIsEditable] = useState(false);
 
 const { isLoading, error, data } = useQuery('todos', getTodos)
 
 
   const [addTodo] = useMutation(createTodo, {
-    onSuccess: () => {
-      cache.invalidateQueries('todos')
-      setTodo('');
-    },
-  })
-
-  const [changeTodo] = useMutation(updateTodo, {
     onSuccess: () => {
       cache.invalidateQueries('todos')
       setTodo('');
@@ -36,7 +28,7 @@ const { isLoading, error, data } = useQuery('todos', getTodos)
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <ul>
+        <ul className={styles.list}>
           {data?.map(todo => (
             <Todo key={todo.id} todo={todo}/>
           ))}

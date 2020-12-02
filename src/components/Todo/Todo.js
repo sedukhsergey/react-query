@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useTodo } from "./useTodo";
+import styles from './styles.module.css';
+import {useMutation, useQueryCache} from "react-query";
+import {updateTodo} from "api/todos";
 
 const Todo = ({
   todo: {
@@ -6,8 +10,40 @@ const Todo = ({
     title = ''
   }
 }) => {
+  const cache = useQueryCache()
+
+  const [isEditable, setIsEditable] = useState(false);
+  const [text, setText] = useTodo(title);
+
+  const [changeTodo] = useMutation(updateTodo, {
+    onSuccess: () => {
+      cache.invalidateQueries('todos')
+      setIsEditable(state => !state);
+    },
+  })
+
   return (
-    <li>{title}</li>
+    isEditable ? (
+      <input
+        className={styles.inputItem}
+        type="text"
+        value={text}
+        onChange={e => {
+          setText(e.target.value)
+        }}
+        autoFocus
+        onBlur={() => changeTodo({
+          id,
+          title: text
+        })}
+      />
+    ) : (
+      <li
+        className={styles.item}
+        onClick={() => {
+        setIsEditable(state => !state);
+      }}>{title}</li>
+    )
   )
 }
 
