@@ -22,6 +22,8 @@ const { isLoading, error, data } = useQuery('todos', getTodos)
   if (error) {
     return <div>{error.message}</div>
   }
+  console.log('data',data)
+    console.log('error',error)
 
   return (
     <div>

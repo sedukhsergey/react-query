@@ -7,6 +7,7 @@ export const createTodo = async (data) => {
       url: 'http://localhost:3030/todos',
       responseType: 'json',
       data,
+      withCredentials: true,
     });
     return response.data;
   } catch (err) {
@@ -42,6 +43,7 @@ export const getTodos = async () => {
       method: 'GET',
       url: 'http://localhost:3030/todos',
       responseType: 'json',
+      withCredentials: true,
     });
     return response.data;
   } catch (err) {
