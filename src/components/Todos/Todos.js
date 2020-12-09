@@ -18,9 +18,8 @@ const { isLoading, error, data } = useQuery('todos', getTodos)
     },
   })
 
-
   if (error) {
-    return <div>{error.message}</div>
+    return <div>{error?.data?.message}</div>
   }
 
   return (
