@@ -1,8 +1,7 @@
-import {useMutation, useQueryCache} from "react-query";
+import {useMutation, useQueryCache } from "react-query";
 import {updateTodo} from "../../../api/todos";
 
 export const useChangeTodo = () => {
-
   const cache = useQueryCache()
   return useMutation(updateTodo, {
     onSuccess: (response, variables) => {
@@ -14,10 +13,9 @@ export const useChangeTodo = () => {
         return todo;
       })
       cache.setQueryData('todos',updatedTodos);
-      return Promise.resolve();
     },
-    onError: () => {
-      return Promise.reject();
+    onError: (err) => {
+      return Promise.reject(err);
     }
   })
 }
