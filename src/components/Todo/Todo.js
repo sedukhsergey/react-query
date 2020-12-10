@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useTodo } from "./useTodo";
 import styles from './styles.module.css';
-import {useMutation, useQueryCache} from "react-query";
-import {updateTodo} from "api/todos";
+import { useDeleteTodo } from "./hooks/useDeleteTodo";
+import {useChangeTodo} from "./hooks/useChangeTodo";
 
 const Todo = ({
   todo: {
@@ -10,17 +10,24 @@ const Todo = ({
     title = ''
   }
 }) => {
-  const cache = useQueryCache()
 
   const [isEditable, setIsEditable] = useState(false);
   const [text, setText] = useTodo(title);
+  const [deleteTodo, { isLoading: isDeleteLoading }] = useDeleteTodo();
+  const [changeTodo, { isLoading: isChangeLoading }] = useChangeTodo()
 
-  const [changeTodo] = useMutation(updateTodo, {
-    onSuccess: () => {
-      cache.invalidateQueries('todos')
+  const handleChangeTodo = async () => {
+    try {
+      await changeTodo({
+        id,
+        title: text
+      })
       setIsEditable(state => !state);
-    },
-  })
+    } catch (error) {
+      console.log('delete todo error',)
+    }
+  }
+
 
   return (
     isEditable ? (
@@ -28,21 +35,22 @@ const Todo = ({
         className={styles.inputItem}
         type="text"
         value={text}
-        onChange={e => {
-          setText(e.target.value)
-        }}
+        disabled={isChangeLoading}
+        onChange={e => setText(e.target.value)}
         autoFocus
-        onBlur={() => changeTodo({
-          id,
-          title: text
-        })}
+        onBlur={handleChangeTodo}
       />
     ) : (
-      <li
-        className={styles.item}
-        onClick={() => {
-        setIsEditable(state => !state);
-      }}>{title}</li>
+      <div className={styles.todoContainer}>
+        <li
+          className={styles.item}
+          onClick={() => setIsEditable(state => !state)}>{title}</li>
+        <button
+          onClick={() => deleteTodo({id})}
+          className={styles.deleteBtn}
+          disabled={isDeleteLoading}
+        >Delete</button>
+      </div>
     )
   )
 }

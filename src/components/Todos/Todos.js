@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
 import Todo from 'components/Todo';
-import { useQueryCache, useQuery, useMutation } from "react-query";
-import { createTodo, getTodos } from "api/todos";
+import { useQuery } from "react-query";
+import { getTodos } from "api/todos";
+import { useAddTodo } from "./hooks/useAddTodo";
 import styles from './styles.module.css';
 
 function Todos() {
-  const cache = useQueryCache()
   const [todo, setTodo] = useState('');
 
 const { isLoading, error, data } = useQuery('todos', getTodos)
 
+const [addTodo, {isLoading: isUpdating}] = useAddTodo();
 
-  const [addTodo] = useMutation(createTodo, {
-    onSuccess: () => {
-      cache.invalidateQueries('todos')
-      setTodo('');
-    },
-  })
-
+const handleAddTodo = async () => {
+  try {
+    await addTodo({
+      title: todo
+    });
+    setTodo('')
+  } catch (err) {
+    //
+  }
+}
   if (error) {
     return <div>{error?.data?.message}</div>
   }
-
   return (
     <div>
       {isLoading ? (
@@ -36,14 +39,11 @@ const { isLoading, error, data } = useQuery('todos', getTodos)
       <br />
       <div>
         <label htmlFor="todo">Todo</label>
-        <input type="text" name={'todo'} value={todo} onChange={e => setTodo(e.currentTarget.value)}/>
+        <input disabled={isUpdating} type="text" name={'todo'} value={todo} onChange={e => setTodo(e.currentTarget.value)}/>
       </div>
       <button
-        onClick={() =>
-          addTodo({
-            title: todo
-          })
-        }
+        disabled={isUpdating}
+        onClick={handleAddTodo}
       >
         Add Todo
       </button>

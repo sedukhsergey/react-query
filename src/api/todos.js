@@ -52,3 +52,17 @@ export const getTodos = async () => {
   }
 };
 
+export const deleteTodo = async ({id}) => {
+  try {
+    const response = await axios({
+      method: 'DELETE',
+      url: `http://localhost:3030/todos/${id}`,
+      responseType: 'json',
+    });
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return Promise.reject(err.response);
+  }
+};
+
