@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
 
-export const createTodo = async (data) => {
+export const createTodo = async data => {
   try {
     const response = await axios({
       method: 'POST',
@@ -19,16 +19,14 @@ export const createTodo = async (data) => {
 
 export const updateTodo = async ({
   title,
-  id
+  id,
 }) => {
   try {
     const response = await axios({
       method: 'PATCH',
       url: `http://localhost:3030/todos/${id}`,
       responseType: 'json',
-      data: {
-        title
-      },
+      data: { title },
     });
     return response.data;
   } catch (err) {
@@ -52,7 +50,7 @@ export const getTodos = async () => {
   }
 };
 
-export const deleteTodo = async ({id}) => {
+export const deleteTodo = async ({ id }) => {
   try {
     const response = await axios({
       method: 'DELETE',

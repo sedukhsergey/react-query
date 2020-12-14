@@ -1,37 +1,35 @@
 import React, { useState } from 'react';
-import { useTodo } from "./useTodo";
+import { useTodo } from './useTodo';
 import styles from './styles.module.css';
-import { useDeleteTodo } from "./hooks/useDeleteTodo";
-import {useChangeTodo} from "./hooks/useChangeTodo";
+import { useDeleteTodo } from './hooks/useDeleteTodo';
+import { useChangeTodo } from './hooks/useChangeTodo';
 
-const Todo = ({
-  todo
-}) => {
+const Todo = ({ todo }) => {
 
   const [isEditable, setIsEditable] = useState(false);
 
   const [text, setText] = useTodo(todo.title);
 
-  const [deleteTodo, { isLoading: isDeleteLoading,  }] = useDeleteTodo();
+  const [deleteTodo, { isLoading: isDeleteLoading  }] = useDeleteTodo();
 
   const [changeTodo, {
     isLoading: isChangeLoading,
-    reset
-  }] = useChangeTodo()
+    reset,
+  }] = useChangeTodo();
 
   const handleChangeTodo = async () => {
     try {
       await changeTodo({
         id: todo.id,
-        title: text
-      })
+        title: text,
+      });
       setIsEditable(state => !state);
-    } catch(err) {
+    } catch (err) {
       setIsEditable(state => !state);
-      setText(todo.title)
+      setText(todo.title);
       reset();
     }
-  }
+  };
 
 
   return (
@@ -51,13 +49,13 @@ const Todo = ({
           className={styles.item}
           onClick={() => setIsEditable(state => !state)}>{todo.title}</li>
         <button
-          onClick={() => deleteTodo({id: todo.id})}
+          onClick={() => deleteTodo({ id: todo.id })}
           className={styles.deleteBtn}
           disabled={isDeleteLoading}
         >Delete</button>
       </div>
     )
-  )
-}
+  );
+};
 
 export default Todo;
