@@ -11,7 +11,7 @@ const Todo = ({
   }
 }) => {
   const cache = useQueryCache()
-
+  console.log('test2',)
   const [isEditable, setIsEditable] = useState(false);
   const [text, setText] = useTodo(title);
 
