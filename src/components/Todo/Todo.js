@@ -22,6 +22,7 @@ const Todo = ({
     },
   })
   console.log('test1',)
+  console.log('test3',)
   return (
     isEditable ? (
       <input
