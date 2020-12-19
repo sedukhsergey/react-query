@@ -21,7 +21,7 @@ const Todo = ({
       setIsEditable(state => !state);
     },
   })
-
+  console.log('test1',)
   return (
     isEditable ? (
       <input
