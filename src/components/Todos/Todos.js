@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Todo from 'components/Todo';
 import { useQuery } from 'react-query';
 import { getTodos } from 'api/todos';
+import { ThemeContext } from "context";
 import { useAddTodo } from './hooks/useAddTodo';
 import styles from './styles.module.css';
+import { themes } from "../../themes";
 
 function Todos() {
+  const [theme, setTheme] = useContext(ThemeContext);
   const [todo, setTodo] = useState('');
 
   const {
@@ -39,7 +42,10 @@ function Todos() {
         </ul>
       )}
       <br />
-      <div>
+      <button onClick={() => setTheme(theme.name === 'light' ? themes.dark : themes.light)}>Change theme to {theme.name === 'light' ? 'DARK' : 'LIGHT'}</button>
+      <div style={{
+        background: theme.background
+      }}>
         <label htmlFor="todo">Todo</label>
         <input
           disabled={isUpdating}

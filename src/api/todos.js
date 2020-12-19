@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export const createTodo = async data => {
   try {
     const response = await axios({

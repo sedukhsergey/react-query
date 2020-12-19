@@ -8,6 +8,8 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import {ThemeContext} from "context";
+import {useTheme} from "hooks/useTheme";
 
 import Todos from 'components/Todos/Todos';
 import Example from 'components/Example/Example';
@@ -19,27 +21,29 @@ const queryCache = new QueryCache();
 export default function App() {
   return (
     <ReactQueryCacheProvider queryCache={queryCache}>
-      <Router>
-        <NavBar />
-        <Switch>
-          <Route
-            exact
-            path={'/todos'}>
-            <Todos />
-          </Route>
-          <Route
-            exact
-            path={'/example'}>
-            <Example />
-          </Route>
-          <Route
-            exact
-            path={'/'}>
-            <Home/>
-          </Route>
-        </Switch>
-      </Router>
+      <ThemeContext.Provider value={useTheme()}>
+        <Router>
+          <NavBar />
+          <Switch>
+            <Route
+              exact
+              path={'/todos'}>
+              <Todos />
+            </Route>
+            <Route
+              exact
+              path={'/example'}>
+              <Example />
+            </Route>
+            <Route
+              exact
+              path={'/'}>
+              <Home/>
+            </Route>
+          </Switch>
+        </Router>
       <ReactQueryDevtools initialIsOpen />
+      </ThemeContext.Provider>
     </ReactQueryCacheProvider>
   );
 }
