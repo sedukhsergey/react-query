@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import { getFiles } from '../../api/files';
+import { getFilesMetaData } from '../../api/files';
 import { useAddFiles } from './hooks/useAddFiles';
 
 const Home = () => {
   const {
     isLoading, error, data,
-  } = useQuery('files', getFiles);
+  } = useQuery('files', getFilesMetaData);
   const [addFile, { isLoading: addFilesLoading }] = useAddFiles();
   const [file, setFile] = useState(null);
   const handleChange = e => {
     setFile(e.target.files);
   };
-  console.log('data', data);
 
   const handleSubmitFiles = async () => {
     if (file) {
@@ -23,6 +22,7 @@ const Home = () => {
       }
       try {
         const response = await addFile(data);
+        console.log('response',response)
       } catch (e) {
       }
     }

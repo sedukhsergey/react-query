@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const getFiles = async () => {
+export const getFilesMetaData = async () => {
   try {
     const response = await axios({
       method: 'GET',

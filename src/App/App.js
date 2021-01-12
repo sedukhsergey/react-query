@@ -13,9 +13,13 @@ import {useTheme} from "hooks/useTheme";
 
 import Todos from 'components/Todos/Todos';
 import Example from 'components/Example/Example';
-import NavBar from 'components/NavBar/NavBar';
 import Home from '../components/Home';
-
+import Login from "../components/Login";
+import PublicLayout  from '../modules/layouts/PublicLayout'
+import PublicRoute from '../modules/PublicRoute';
+import PrivateLayout from "../modules/layouts/PrivateLayout";
+import PrivateRoute from "../modules/PrivateRoute";
+import Navigator from "../modules/Navigator";
 const queryCache = new QueryCache();
 
 export default function App() {
@@ -23,13 +27,19 @@ export default function App() {
     <ReactQueryCacheProvider queryCache={queryCache}>
       <ThemeContext.Provider value={useTheme()}>
         <Router>
-          <NavBar />
           <Switch>
-            <Route
-              exact
-              path={'/todos'}>
+            <PublicRoute
+              path={'/login'}
+              layout={PublicLayout}
+            >
+              <Login />
+            </PublicRoute>
+            <PrivateRoute
+              path={'/todos'}
+              layout={PrivateLayout}
+            >
               <Todos />
-            </Route>
+            </PrivateRoute>
             <Route
               exact
               path={'/example'}>
@@ -38,11 +48,11 @@ export default function App() {
             <Route
               exact
               path={'/'}>
-              <Home/>
+              <Navigator />
             </Route>
           </Switch>
         </Router>
-      <ReactQueryDevtools initialIsOpen />
+      {/*<ReactQueryDevtools initialIsOpen />*/}
       </ThemeContext.Provider>
     </ReactQueryCacheProvider>
   );
