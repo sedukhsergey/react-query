@@ -1,14 +1,16 @@
-import { useEffect, useState } from 'react';
+import {
+  useEffect, useState,
+} from 'react';
 
 
-export const useTodo = (title) => {
+export const useTodo = title => {
   const [data, setData] = useState('');
 
   useEffect(() => {
     if (title) {
       setData(title);
     }
-  },[title])
+  }, [title]);
 
   return [data, setData];
-}
+};

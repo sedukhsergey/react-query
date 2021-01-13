@@ -1,27 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Todo from 'components/Todo';
-import { useQueryCache, useQuery, useMutation } from "react-query";
-import { createTodo, getTodos } from "api/todos";
+import { useQuery } from 'react-query';
+import { getTodos } from 'api/todos';
+import { ThemeContext } from "context";
+import { useAddTodo } from './hooks/useAddTodo';
 import styles from './styles.module.css';
+import { themes } from "../../themes";
 
 function Todos() {
-  const cache = useQueryCache()
+  const [theme, setTheme] = useContext(ThemeContext);
   const [todo, setTodo] = useState('');
 
-const { isLoading, error, data } = useQuery('todos', getTodos)
+  const {
+    isLoading, error, data,
+  } = useQuery('todos', getTodos);
 
+  const [addTodo, { isLoading: isUpdating }] = useAddTodo();
 
-  const [addTodo] = useMutation(createTodo, {
-    onSuccess: () => {
-      cache.invalidateQueries('todos')
+  const handleAddTodo = async () => {
+    try {
+      await addTodo({ title: todo });
       setTodo('');
-    },
-  })
-
+    } catch (err) {
+    //
+    }
+  };
   if (error) {
-    return <div>{error?.data?.message}</div>
+    return <div>{error?.data?.message}</div>;
   }
-
   return (
     <div>
       {isLoading ? (
@@ -29,26 +35,33 @@ const { isLoading, error, data } = useQuery('todos', getTodos)
       ) : (
         <ul className={styles.list}>
           {data?.map(todo => (
-            <Todo key={todo.id} todo={todo}/>
+            <Todo
+              key={todo.id}
+              todo={todo}/>
           ))}
         </ul>
       )}
       <br />
-      <div>
+      <button onClick={() => setTheme(theme.name === 'light' ? themes.dark : themes.light)}>Change theme to {theme.name === 'light' ? 'DARK' : 'LIGHT'}</button>
+      <div style={{
+        background: theme.background
+      }}>
         <label htmlFor="todo">Todo</label>
-        <input type="text" name={'todo'} value={todo} onChange={e => setTodo(e.currentTarget.value)}/>
+        <input
+          disabled={isUpdating}
+          type="text"
+          name={'todo'}
+          value={todo}
+          onChange={e => setTodo(e.currentTarget.value)}/>
       </div>
       <button
-        onClick={() =>
-          addTodo({
-            title: todo
-          })
-        }
+        disabled={isUpdating}
+        onClick={handleAddTodo}
       >
         Add Todo
       </button>
     </div>
-  )
+  );
 }
 
 export default Todos;

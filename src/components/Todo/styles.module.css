@@ -11,3 +11,13 @@
   padding: 4px;
   border-radius: 4px;
 }
+
+.todoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.deleteBtn {
+  margin-left: 16px;
+}
