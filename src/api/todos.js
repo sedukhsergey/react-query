@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axiosWrapper from './axiosInterceptor'
 
 export const createTodo = async data => {
   try {
-    const response = await axios({
+    const response = await axiosWrapper({
       method: 'POST',
       url: 'http://localhost:3030/todos',
       responseType: 'json',
@@ -21,7 +21,7 @@ export const updateTodo = async ({
   id,
 }) => {
   try {
-    const response = await axios({
+    const response = await axiosWrapper({
       method: 'PATCH',
       url: `http://localhost:3030/todos/${id}`,
       responseType: 'json',
@@ -37,7 +37,7 @@ export const updateTodo = async ({
 
 export const getTodos = async () => {
   try {
-    const response = await axios({
+    const response = await axiosWrapper({
       method: 'GET',
       url: 'http://localhost:3030/todos',
       responseType: 'json',
@@ -51,7 +51,7 @@ export const getTodos = async () => {
 
 export const deleteTodo = async ({ id }) => {
   try {
-    const response = await axios({
+    const response = await axiosWrapper({
       method: 'DELETE',
       url: `http://localhost:3030/todos/${id}`,
       responseType: 'json',

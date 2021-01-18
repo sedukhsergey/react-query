@@ -1,8 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router';
+import {getCookie} from "../../utils/cookie";
 
 const Navigator = () => {
-  const auth_token = localStorage.getItem('auth_token');
+  const auth_token =  getCookie('auth_token');
   if (auth_token) {
     return <Redirect to={`/todos`} />;
   }

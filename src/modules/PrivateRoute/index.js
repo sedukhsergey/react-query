@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Route, Redirect,
 } from 'react-router-dom';
+import { getCookie } from "../../utils/cookie";
 
 const PrivateRoute = ({
    layout: Layout,
@@ -11,7 +12,7 @@ const PrivateRoute = ({
   <Route
     path={path}
     render={props => {
-      const isAuthenticated = localStorage.getItem('auth_token');
+      const isAuthenticated = getCookie('auth_token');
       return isAuthenticated  ? (
         <Layout>
           {children}

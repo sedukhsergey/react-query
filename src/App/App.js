@@ -13,13 +13,14 @@ import {useTheme} from "hooks/useTheme";
 
 import Todos from 'components/Todos/Todos';
 import Example from 'components/Example/Example';
-import Home from '../components/Home';
-import Login from "../components/Login";
+import Registrtaion from "../components/Registration/Registration";
+import Login from "../components/Login/Login";
 import PublicLayout  from '../modules/layouts/PublicLayout'
 import PublicRoute from '../modules/PublicRoute';
 import PrivateLayout from "../modules/layouts/PrivateLayout";
 import PrivateRoute from "../modules/PrivateRoute";
 import Navigator from "../modules/Navigator";
+import Files from "../components/Files";
 const queryCache = new QueryCache();
 
 export default function App() {
@@ -28,6 +29,12 @@ export default function App() {
       <ThemeContext.Provider value={useTheme()}>
         <Router>
           <Switch>
+            <PublicRoute
+              path={'/registration'}
+              layout={PublicLayout}
+            >
+              <Registrtaion />
+            </PublicRoute>
             <PublicRoute
               path={'/login'}
               layout={PublicLayout}
@@ -39,6 +46,12 @@ export default function App() {
               layout={PrivateLayout}
             >
               <Todos />
+            </PrivateRoute>
+            <PrivateRoute
+              path={'/files'}
+              layout={PrivateLayout}
+            >
+              <Files />
             </PrivateRoute>
             <Route
               exact

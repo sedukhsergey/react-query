@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { getFilesMetaData } from '../../api/files';
 import { useAddFiles } from './hooks/useAddFiles';
 
-const Home = () => {
+const Files = () => {
   const {
     isLoading, error, data,
   } = useQuery('files', getFilesMetaData);
@@ -47,4 +47,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Files;
