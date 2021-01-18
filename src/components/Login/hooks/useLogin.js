@@ -5,6 +5,9 @@ import { login } from "../../../api/auth";
 
 export const useLogin = () => {
   return useMutation(login, {
-    onSuccess: (response) => response,
+    onSuccess: (response, variables) => {
+      variables.history.push('/todos')
+      return response;
+    },
   });
 };

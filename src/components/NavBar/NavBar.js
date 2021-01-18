@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { deleteCookie } from "../../utils/cookie";
 
 const NavBar = () => {
   const history = useHistory();
   const handleLogOut = () => {
-    localStorage.clear();
+    deleteCookie('auth_token')
     history.push('/login')
   }
   return (

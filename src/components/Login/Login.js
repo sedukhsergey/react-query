@@ -12,12 +12,10 @@ const Login = () => {
     error,
   }] = useLogin();
   const handleSubmit = async () => {
-    if (email && password) {
-      await login({email, password})
-      history.push('/todos')
-    }
+      if (email && password) {
+        await login({email, password, history})
+      }
   }
-  console.log('error',error)
   return (
     <div>
       {isLoading && <p>Loading...</p>}
