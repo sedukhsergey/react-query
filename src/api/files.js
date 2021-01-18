@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axiosWrapper from './axiosInterceptor'
 
 export const getFilesMetaData = async () => {
   try {
-    const response = await axios({
+    const response = await axiosWrapper({
       method: 'GET',
       url: 'http://localhost:3030/user-files/descriptions',
       responseType: 'json',
@@ -17,7 +17,7 @@ export const getFilesMetaData = async () => {
 
 export const addFiles = async data => {
   try {
-    const response = await axios({
+    const response = await axiosWrapper({
       method: 'POST',
       url: 'http://localhost:3030/user-files',
       responseType: 'json',

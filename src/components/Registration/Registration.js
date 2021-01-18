@@ -13,8 +13,7 @@ const Registrtaion = () => {
   }] = useRegistration();
   const handleSubmit = async () => {
     if (email && password) {
-     const response = await registration({email, password})
-      history.push('/todos')
+     await registration({email, password, history})
     }
   }
   return (

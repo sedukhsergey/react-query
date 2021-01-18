@@ -16,6 +16,6 @@ export const useAddFiles = () => {
       cache.setQueryData('files', [...response]);
       return Promise.resolve();
     },
-    onError: error => Promise.reject(),
+    // onError: error => Promise.reject(),
   });
 };

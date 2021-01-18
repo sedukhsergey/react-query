@@ -2,29 +2,26 @@ import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { getFilesMetaData } from '../../api/files';
 import { useAddFiles } from './hooks/useAddFiles';
+import styles from './styles.module.css';
 
 const Files = () => {
   const {
     isLoading, error, data,
   } = useQuery('files', getFilesMetaData);
-  const [addFile, { isLoading: addFilesLoading }] = useAddFiles();
+  const [addFile, { isLoading: addFilesLoading, error: addFileError }] = useAddFiles();
   const [file, setFile] = useState(null);
+  console.log('addFileError',addFileError)
   const handleChange = e => {
     setFile(e.target.files);
   };
 
   const handleSubmitFiles = async () => {
     if (file) {
-
       const data = new FormData();
       for (const key of file) {
         data.append(`file-${key.name}`, key);
       }
-      try {
-        const response = await addFile(data);
-        console.log('response',response)
-      } catch (e) {
-      }
+      await addFile(data);
     }
   };
 
@@ -36,7 +33,7 @@ const Files = () => {
         onChange={handleChange}
         multiple/>
       <button onClick={handleSubmitFiles}>SUbmit</button>
-
+      {addFileError && <p className={styles.error}>{addFileError?.data?.message}</p>}
       <h2>Uploaded files</h2>
       <div>{data?.map(item => (
         <div key={item.id}>

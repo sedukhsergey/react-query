@@ -5,6 +5,8 @@ import { registration } from "../../../api/auth";
 
 export const useRegistration = () => {
   return useMutation(registration, {
-    onSuccess: (response) => response,
+    onSuccess: (response, variables) => {
+      variables.history.push('/todos')
+    },
   });
 };
