@@ -22,7 +22,7 @@ function Todos() {
       await mutateAsync({ title: todo });
       setTodo('');
     } catch (err) {
-    //
+    console.log('mutation error',err)
     }
   };
   if (error) {
