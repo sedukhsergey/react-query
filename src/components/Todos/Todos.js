@@ -15,11 +15,11 @@ function Todos() {
     isLoading, error, data,
   } = useQuery('todos', getTodos);
 
-  const [addTodo, { isLoading: isUpdating }] = useAddTodo();
+  const { mutateAsync, isLoading: isUpdating } = useAddTodo();
 
   const handleAddTodo = async () => {
     try {
-      await addTodo({ title: todo });
+      await mutateAsync({ title: todo });
       setTodo('');
     } catch (err) {
     //

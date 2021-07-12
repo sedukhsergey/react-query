@@ -1,13 +1,11 @@
 import React from 'react';
-import {
-  QueryCache, ReactQueryCacheProvider,
-} from 'react-query';
 import { ReactQueryDevtools } from 'react-query-devtools';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from 'react-router-dom';
+import {QueryClient, QueryClientProvider,} from 'react-query';
 import {ThemeContext} from "context";
 import {useTheme} from "hooks/useTheme";
 
@@ -21,11 +19,12 @@ import PrivateLayout from "../modules/layouts/PrivateLayout";
 import PrivateRoute from "../modules/PrivateRoute";
 import Navigator from "../modules/Navigator";
 import Files from "../components/Files";
-const queryCache = new QueryCache();
+import {Home} from "../components/Home/Home";
+const queryClient = new QueryClient()
 
 export default function App() {
   return (
-    <ReactQueryCacheProvider queryCache={queryCache}>
+    <QueryClientProvider client={queryClient}>
       <ThemeContext.Provider value={useTheme()}>
         <Router>
           <Switch>
@@ -41,6 +40,12 @@ export default function App() {
             >
               <Login />
             </PublicRoute>
+            <PrivateRoute
+              path={'/home'}
+              layout={PrivateLayout}
+            >
+              <Home />
+            </PrivateRoute>
             <PrivateRoute
               path={'/todos'}
               layout={PrivateLayout}
@@ -67,6 +72,6 @@ export default function App() {
         </Router>
       {/*<ReactQueryDevtools initialIsOpen />*/}
       </ThemeContext.Provider>
-    </ReactQueryCacheProvider>
+    </QueryClientProvider>
   );
 }

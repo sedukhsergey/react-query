@@ -7,13 +7,14 @@ const Registrtaion = () => {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [registration, {
+  const {
     isLoading,
     error,
-  }] = useRegistration();
+    mutateAsync
+  } = useRegistration();
   const handleSubmit = async () => {
     if (email && password) {
-     await registration({email, password, history})
+     await mutateAsync({email, password, history})
     }
   }
   return (

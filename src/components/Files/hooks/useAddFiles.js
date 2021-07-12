@@ -1,19 +1,19 @@
 import {
-  useMutation, useQueryCache,
+  useMutation, useQueryClient,
 } from 'react-query';
 import { addFiles } from '../../../api/files';
 
 export const useAddFiles = () => {
-  const cache = useQueryCache();
+  const queryClient = useQueryClient();
 
   return useMutation(addFiles, {
     onSuccess: (response, variables) => {
-      const cachedFiles = cache.getQueryData('files');
+      const cachedFiles = queryClient.getQueryData('files');
       if (cachedFiles) {
-        cache.setQueryData('files', [...cachedFiles, ...response]);
+        queryClient.setQueryData('files', [...cachedFiles, ...response]);
         return Promise.resolve();
       }
-      cache.setQueryData('files', [...response]);
+      queryClient.setQueryData('files', [...response]);
       return Promise.resolve();
     },
     // onError: error => Promise.reject(),

@@ -1,14 +1,14 @@
 import {
-  useMutation, useQueryCache,
+  useMutation, useQueryClient,
 } from 'react-query';
 import { createTodo } from '../../../api/todos';
 
 export const useAddTodo = () => {
-  const cache = useQueryCache();
+  const queryClient = useQueryClient();
   return useMutation(createTodo, {
     onSuccess: (response, variables) => {
-      const cachedTodos = cache.getQueryData('todos');
-      cache.setQueryData('todos', [...cachedTodos, {
+      const cachedTodos = queryClient.getQueryData('todos');
+      queryClient.setQueryData('todos', [...cachedTodos, {
         id: response.id, title: variables.title,
       }]);
       return Promise.resolve();

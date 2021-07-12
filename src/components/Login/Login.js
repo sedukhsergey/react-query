@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from "react-router-dom";
 import styles from './styles.module.css';
-import { useLogin } from "./hooks/useLogin";
+import {useLogin} from "./hooks/useLogin";
 
 const Login = () => {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [login, {
+  const {
+    mutateAsync,
     isLoading,
     error,
-  }] = useLogin();
+  } = useLogin();
   const handleSubmit = async () => {
       if (email && password) {
-        await login({email, password, history})
+        await mutateAsync({email, password, history})
       }
   }
   return (

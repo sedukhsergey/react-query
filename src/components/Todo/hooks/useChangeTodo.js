@@ -1,20 +1,20 @@
 import {
-  useMutation, useQueryCache,
+  useMutation, useQueryClient,
 } from 'react-query';
 import { updateTodo } from '../../../api/todos';
 
 export const useChangeTodo = () => {
-  const cache = useQueryCache();
+  const queryClient = useQueryClient();
   return useMutation(updateTodo, {
     onSuccess: (response, variables) => {
-      const cachedTodos = cache.getQueryData('todos');
+      const cachedTodos = queryClient.getQueryData('todos');
       const updatedTodos = cachedTodos.map(todo => {
         if (todo.id === variables.id) {
           return variables;
         }
         return todo;
       });
-      cache.setQueryData('todos', updatedTodos);
+      queryClient.setQueryData('todos', updatedTodos);
     },
     onError: err => Promise.reject(err),
   });

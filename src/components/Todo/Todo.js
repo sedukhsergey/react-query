@@ -10,12 +10,13 @@ const Todo = ({ todo }) => {
 
   const [text, setText] = useTodo(todo.title);
 
-  const [deleteTodo, { isLoading: isDeleteLoading  }] = useDeleteTodo();
+  const { mutateAsync, isLoading: isDeleteLoading  } = useDeleteTodo();
 
-  const [changeTodo, {
+  const {
+    mutateAsync: changeTodo,
     isLoading: isChangeLoading,
     reset,
-  }] = useChangeTodo();
+  } = useChangeTodo();
 
   const handleChangeTodo = async () => {
     try {
@@ -49,7 +50,7 @@ const Todo = ({ todo }) => {
           className={styles.item}
           onClick={() => setIsEditable(state => !state)}>{todo.title}</li>
         <button
-          onClick={() => deleteTodo({ id: todo.id })}
+          onClick={() => mutateAsync({ id: todo.id })}
           className={styles.deleteBtn}
           disabled={isDeleteLoading}
         >Delete</button>

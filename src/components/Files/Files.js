@@ -8,7 +8,7 @@ const Files = () => {
   const {
     isLoading, error, data,
   } = useQuery('files', getFilesMetaData);
-  const [addFile, { isLoading: addFilesLoading, error: addFileError }] = useAddFiles();
+  const { mutateAsync: addFile, isLoading: addFilesLoading, error: addFileError } = useAddFiles();
   const [file, setFile] = useState(null);
   console.log('addFileError',addFileError)
   const handleChange = e => {

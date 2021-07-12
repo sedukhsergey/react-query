@@ -6,8 +6,12 @@ import { login } from "../../../api/auth";
 export const useLogin = () => {
   return useMutation(login, {
     onSuccess: (response, variables) => {
-      variables.history.push('/todos')
+      console.log('variables',variables)
+      variables.history.push('/home')
       return response;
     },
+    onError: (error => {
+      console.log('error onErorr',error)
+    })
   });
 };

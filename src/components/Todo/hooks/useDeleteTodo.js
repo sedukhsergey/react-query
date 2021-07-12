@@ -1,15 +1,15 @@
 import {
-  useMutation, useQueryCache,
+  useMutation, useQueryClient,
 } from 'react-query';
 import { deleteTodo } from '../../../api/todos';
 
 export const useDeleteTodo = () => {
-  const cache = useQueryCache();
+  const queryClient = useQueryClient();
   return useMutation(deleteTodo, {
     onSuccess: (response, { id }) => {
-      const cachedTodos = cache.getQueryData('todos');
+      const cachedTodos = queryClient.getQueryData('todos');
       const updatedTodos = cachedTodos.filter(todo => todo.id !== id);
-      cache.setQueryData('todos', updatedTodos);
+      queryClient.setQueryData('todos', updatedTodos);
     },
   });
 };
