@@ -1,13 +1,15 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React from "react";
+import { Link, useHistory } from "react-router-dom";
 import { deleteCookie } from "../../utils/cookie";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../modules/PrivateRoute";
 
 const NavBar = () => {
   const history = useHistory();
   const handleLogOut = () => {
-    deleteCookie('auth_token')
-    history.push('/login')
-  }
+    deleteCookie(ACCESS_TOKEN);
+    deleteCookie(REFRESH_TOKEN);
+    history.push("/login");
+  };
   return (
     <div>
       <nav>
@@ -30,7 +32,7 @@ const NavBar = () => {
         </ul>
       </nav>
     </div>
-  )
+  );
 };
 
 export default NavBar;
