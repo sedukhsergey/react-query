@@ -1,14 +1,13 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { deleteCookie } from "../../utils/cookie";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../modules/PrivateRoute";
+import { useLogOut } from "./hooks/logOut";
 
 const NavBar = () => {
   const history = useHistory();
-  const handleLogOut = () => {
-    deleteCookie(ACCESS_TOKEN);
-    deleteCookie(REFRESH_TOKEN);
-    history.push("/login");
+  const { mutateAsync, isLoading, error } = useLogOut();
+  const handleLogOut = async () => {
+    const data = await mutateAsync({ history });
+    console.log("data", data);
   };
   return (
     <div>
