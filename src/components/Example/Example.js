@@ -1,21 +1,34 @@
-import React, { useState } from 'react';
-import { useQuery } from 'react-query';
-import { getCats } from 'api/animals';
-
+import React, { useEffect, useState } from "react";
+import { useRefreshToken } from "./hooks/useRefreshToken";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+const fpPromise = FingerprintJS.load();
 
 const Example = () => {
-  const [name, setName] = useState('');
-  const {
-    isLoading, error, data,
-  } = useQuery('animalsData', getCats);
+  const { mutateAsync, isLoading, error } = useRefreshToken();
+  const [visitorId, setVisitorId] = useState("");
 
-  if (isLoading) return 'Loading...';
+  useEffect(() => {
+    (async () => {
+      // Get the visitor identifier when you need it.
+      const fp = await fpPromise;
+      const result = await fp.get();
 
-  if (error) return 'An error has occurred: ' + error.message;
+      // This is the visitor identifier:
+      setVisitorId(result.visitorId);
+    })();
+  }, []);
+
+  const handleSubmit = async () => {
+    await mutateAsync({
+      fingerprint: visitorId,
+      userAgent: "web-application",
+      isRememberMe: true,
+    });
+  };
 
   return (
-    <div>{data}
-      <button onClick={() => setName(state => state + '3')}>{name}</button>
+    <div>
+      <button onClick={handleSubmit}>Click</button>
     </div>
   );
 };

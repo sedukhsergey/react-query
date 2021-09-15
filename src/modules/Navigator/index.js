@@ -6,7 +6,6 @@ import { USER_COOKIE } from "../PrivateRoute";
 
 const Navigator = () => {
   const isAuthenticated = getCookie(USER_COOKIE);
-  console.log("isAuthenticated", isAuthenticated);
   if (isAuthenticated) {
     return <Redirect to={`/home`} />;
   }

@@ -1,5 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 import { getCookie } from "../utils/cookie";
+export const USER_COOKIE = "User";
+export const ADMIN = "admin";
+export const REFRESH_COOKIE = "Refresh";
+export const AUTHENTICATION_COOKIE = "Authentication";
 
 const api = axios.create();
 
@@ -8,7 +12,7 @@ api.interceptors.request.use((config) => {
     ...config,
     headers: {
       ...config.headers,
-      Authorization: getCookie('auth_token'),
+      Authorization: `Bearer ${getCookie(AUTHENTICATION_COOKIE)}`,
     },
   };
 });

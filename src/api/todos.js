@@ -1,11 +1,11 @@
-import axiosWrapper from './axiosInterceptor'
+import axiosWrapper from "./axiosInterceptor";
 
-export const createTodo = async data => {
+export const createTodo = async (data) => {
   try {
     const response = await axiosWrapper({
-      method: 'POST',
-      url: 'http://localhost:3030/todos',
-      responseType: 'json',
+      method: "POST",
+      url: "http://localhost:3030/todos",
+      responseType: "json",
       data,
       withCredentials: true,
     });
@@ -16,15 +16,12 @@ export const createTodo = async data => {
   }
 };
 
-export const updateTodo = async ({
-  title,
-  id,
-}) => {
+export const updateTodo = async ({ title, id }) => {
   try {
     const response = await axiosWrapper({
-      method: 'PATCH',
+      method: "PATCH",
       url: `http://localhost:3030/todos/${id}`,
-      responseType: 'json',
+      responseType: "json",
       data: { title },
     });
     return response.data;
@@ -34,17 +31,31 @@ export const updateTodo = async ({
   }
 };
 
+// export const getTodos = async () => {
+//   try {
+//     const response = await axiosWrapper({
+//       method: "GET",
+//       url: "http://localhost:3030/todos",
+//       responseType: "json",
+//       withCredentials: true,
+//     });
+//     return response.data;
+//   } catch (err) {
+//     console.error(err);
+//     return Promise.reject(err.response);
+//   }
+// };
 
 export const getTodos = async () => {
   try {
     const response = await axiosWrapper({
-      method: 'GET',
-      url: 'http://localhost:3030/todos',
-      responseType: 'json',
+      method: "GET",
+      url: "http://localhost:3030/teams",
+      responseType: "json",
+      withCredentials: true,
     });
     return response.data;
   } catch (err) {
-    console.error(err);
     return Promise.reject(err.response);
   }
 };
@@ -52,9 +63,9 @@ export const getTodos = async () => {
 export const deleteTodo = async ({ id }) => {
   try {
     const response = await axiosWrapper({
-      method: 'DELETE',
+      method: "DELETE",
       url: `http://localhost:3030/todos/${id}`,
-      responseType: 'json',
+      responseType: "json",
     });
     return response.data;
   } catch (err) {
@@ -63,3 +74,17 @@ export const deleteTodo = async ({ id }) => {
   }
 };
 
+export const getTeams = async () => {
+  try {
+    const response = await axiosWrapper({
+      method: "GET",
+      url: "http://localhost:3030/teams",
+      responseType: "json",
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return Promise.reject(err.response);
+  }
+};

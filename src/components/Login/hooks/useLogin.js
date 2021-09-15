@@ -1,12 +1,13 @@
-import {
-  useMutation,
-} from 'react-query';
+import { useMutation } from "react-query";
 import { login } from "../../../api/auth";
 
 export const useLogin = () => {
   return useMutation(login, {
     onSuccess: (response, variables) => {
-      variables.history.push('/home')
+      response.cookies.forEach((cookie) => {
+        document.cookie = cookie;
+      });
+      variables.history.push("/home");
       return response;
     },
   });

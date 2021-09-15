@@ -43,3 +43,18 @@ export const logOut = async () => {
     return Promise.reject(err.response);
   }
 };
+
+export const refreshToken = async (data) => {
+  try {
+    const response = await axiosWrapper({
+      method: "POST",
+      url: "http://localhost:3030/auth/refresh",
+      responseType: "json",
+      data,
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (err) {
+    return Promise.reject(err.response);
+  }
+};
