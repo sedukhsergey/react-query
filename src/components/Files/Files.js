@@ -25,7 +25,7 @@ const Files = () => {
 
   const handleSubmitFiles = async () => {
     const data = new FormData();
-    const array = JSON.stringify([3]);
+    const deletedFiles = JSON.stringify([3]);
     data.append("problemId", 1);
     data.append("date", "1990-05-23T20:00:00.000Z");
     data.append("mskId", 1);
@@ -45,7 +45,7 @@ const Files = () => {
     // data.append("from", "1990-05-23T20:00:00.000Z");
     // data.append("until", "1990-05-23T20:00:00.000Z");
     // data.append("notes", "test notes");
-    data.append("deletedFiles", array);
+    data.append("deletedFiles", deletedFiles);
 
     if (file) {
       for (const key of file) {
