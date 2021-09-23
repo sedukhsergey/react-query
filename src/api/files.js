@@ -14,11 +14,25 @@ export const getFilesMetaData = async () => {
   }
 };
 
+export const updateFiles = async (data) => {
+  try {
+    const response = await axiosWrapper({
+      method: "PUT",
+      url: "http://localhost:3030/information-letters/team/1/player/1/information/22",
+      responseType: "json",
+      data,
+    });
+    return response.data;
+  } catch (err) {
+    return Promise.reject(err.response || err);
+  }
+};
+
 export const addFiles = async (data) => {
   try {
     const response = await axiosWrapper({
       method: "POST",
-      url: "http://localhost:3030/problem/upload",
+      url: "http://localhost:3030/information-letters/team/1/player/1",
       responseType: "json",
       data,
     });
