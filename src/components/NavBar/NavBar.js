@@ -26,6 +26,9 @@ const NavBar = () => {
             <Link to="/files">Files</Link>
           </li>
           <li>
+            <Link to="/notifications">Notifications</Link>
+          </li>
+          <li>
             <button onClick={handleLogOut}>Lot Out</button>
           </li>
         </ul>
