@@ -25,13 +25,13 @@ const Files = () => {
 
   const handleSubmitFiles = async () => {
     const data = new FormData();
-    const deletedFiles = JSON.stringify([3]);
-    data.append("problemId", 1);
-    data.append("date", "1990-05-23T20:00:00.000Z");
-    data.append("mskId", 1);
-    data.append("name", "test name");
-    data.append("indication", "indication");
-    data.append("outcome", "outcome");
+    const deletedFiles = JSON.stringify([10]);
+    // data.append("problemId", 1);
+    // data.append("date", "1990-05-23T20:00:00.000Z");
+    // data.append("mskId", 1);
+    // data.append("name", "test name");
+    // data.append("indication", "indication");
+    // data.append("outcome", "outcome");
 
     // data.append("outcome", "outcome string");
     // data.append("tests", "tests string");
@@ -40,11 +40,13 @@ const Files = () => {
 
     // data.append("categoryTypeId", 1);
 
-    // data.append("problemStatusId", "1");
-    // data.append("mskId", "1");
-    // data.append("from", "1990-05-23T20:00:00.000Z");
-    // data.append("until", "1990-05-23T20:00:00.000Z");
-    // data.append("notes", "test notes");
+    data.append("problemStatusId", "1");
+    data.append("problemId", "2");
+    data.append("categoryTypeId", "1");
+    data.append("mskId", "1");
+    data.append("from", "1990-05-23T20:00:00.000Z");
+    data.append("until", "1990-05-23T20:00:00.000Z");
+    data.append("notes", "test notes");
     data.append("deletedFiles", deletedFiles);
 
     if (file) {
@@ -52,7 +54,7 @@ const Files = () => {
         data.append(`file`, key);
       }
     }
-    await addFile(data);
+    await updateFiles(data);
   };
 
   return (

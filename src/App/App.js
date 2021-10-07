@@ -17,6 +17,7 @@ import Navigator from "../modules/Navigator";
 import Files from "../components/Files";
 import { Home } from "../components/Home/Home";
 import Notifications from "../components/Notifications/Notifications";
+import Confirm from "../components/Confirm/Confirm";
 const queryClient = new QueryClient();
 
 export default function App() {
@@ -30,6 +31,9 @@ export default function App() {
             </PublicRoute>
             <PublicRoute path={"/login"} layout={PublicLayout}>
               <Login />
+            </PublicRoute>
+            <PublicRoute path={"/confirm"} layout={PublicLayout}>
+              <Confirm />
             </PublicRoute>
             <PrivateRoute path={"/home"} layout={PrivateLayout}>
               <Home />

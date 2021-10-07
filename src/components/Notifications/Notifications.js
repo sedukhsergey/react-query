@@ -1,14 +1,23 @@
 import React, { useState, useCallback, useEffect } from "react";
 import io from "socket.io-client";
+import { getCookie } from "../../utils/cookie";
+import { AUTHENTICATION_COOKIE } from "../../api/axiosInterceptor";
 
 let socket;
 const Notifications = () => {
   useEffect(() => {
-    socket = io.connect("http://localhost:3030");
+    socket = io.connect("http://localhost:3030", {
+      auth: {
+        token: getCookie(AUTHENTICATION_COOKIE),
+      },
+    });
   }, []);
 
   const handleSetMessage = () => {
-    socket.emit("message", "some test message");
+    socket.emit("get_all_notifications", {
+      offset: 0,
+      limit: 100,
+    });
   };
 
   useEffect(() => {
@@ -20,10 +29,16 @@ const Notifications = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("msgToClient", (data) => {
-      console.log("message from server", data);
+    socket.on("all_notifications", (data) => {
+      console.log("all notifications", data);
     });
-  });
+  }, []);
+
+  useEffect(() => {
+    socket.on("notification", (data) => {
+      console.log("new notification", data);
+    });
+  }, []);
 
   return (
     <div>

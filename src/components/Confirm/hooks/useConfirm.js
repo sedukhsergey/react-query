@@ -1,9 +1,10 @@
 import { useMutation } from "react-query";
 import { login, loginConfirm } from "../../../api/auth";
 
-export const useLogin = () => {
-  return useMutation(login, {
+export const useConfirm = () => {
+  return useMutation(loginConfirm, {
     onSuccess: (response, variables) => {
+      console.log("response", response);
       response.cookies.forEach((cookie) => {
         document.cookie = cookie;
       });

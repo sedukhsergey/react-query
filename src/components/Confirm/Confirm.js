@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import { useHistory, Link } from "react-router-dom";
-import styles from "./styles.module.css";
-import { useLogin } from "./hooks/useLogin";
+import { useConfirm } from "./hooks/useConfirm";
 const fpPromise = FingerprintJS.load();
 
-const Login = () => {
+const Confirm = () => {
   const history = useHistory();
   const [visitorId, setVisitorId] = useState("");
-  const [email, setEmail] = useState("");
+  const [sixDigitsNumber, setSixDigitsNumber] = useState("");
   const [password, setPassword] = useState("");
-  const { mutateAsync, isLoading, error } = useLogin();
+  const { mutateAsync, isLoading, error } = useConfirm();
   useEffect(() => {
     (async () => {
       // Get the visitor identifier when you need it.
@@ -22,13 +21,12 @@ const Login = () => {
     })();
   }, []);
   const handleSubmit = async () => {
-    if (email && password) {
+    if (sixDigitsNumber) {
       try {
         await mutateAsync({
           fingerprint: visitorId,
           userAgent: "web-application",
-          email,
-          password,
+          sixDigitsNumber: Number(sixDigitsNumber),
           history,
           authMethod: "basic",
           isRememberMe: true,
@@ -42,21 +40,15 @@ const Login = () => {
     <div>
       {isLoading && <p>Loading...</p>}
       <input
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => setSixDigitsNumber(e.target.value)}
         type="text"
-        value={email}
-      />
-      <input
-        onChange={(e) => setPassword(e.target.value)}
-        type="password"
-        value={password}
+        value={sixDigitsNumber}
       />
       <button onClick={handleSubmit}>Submit</button>
-      {error && <p className={styles.error}>{error?.data?.message}</p>}
       <br />
       <Link to={"/registration"}>Navigate to Registration</Link>
     </div>
   );
 };
 
-export default Login;
+export default Confirm;
