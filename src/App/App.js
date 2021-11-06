@@ -19,6 +19,7 @@ import { Home } from "../components/Home/Home";
 import Notifications from "../components/Notifications/Notifications";
 import Confirm from "../components/Confirm/Confirm";
 import { AudioFile } from "../components/AudioFile";
+import { PdfDocument1 } from "../components/PdfDocument1";
 const queryClient = new QueryClient();
 
 export default function App() {
@@ -38,6 +39,9 @@ export default function App() {
             </PublicRoute>
             <PrivateRoute path={"/audio"} layout={PrivateLayout}>
               <AudioFile />
+            </PrivateRoute>
+            <PrivateRoute path={"/pdf-document1"} layout={PrivateLayout}>
+              <PdfDocument1 />
             </PrivateRoute>
             <PrivateRoute path={"/home"} layout={PrivateLayout}>
               <Home />

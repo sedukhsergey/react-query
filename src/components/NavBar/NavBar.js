@@ -32,6 +32,18 @@ const NavBar = () => {
             <Link to="/audio">Audio</Link>
           </li>
           <li>
+            <Link to="/pdf-document1">pdf-document1</Link>
+          </li>
+          <li>
+            <Link to="/pdf-document2">pdf-document2</Link>
+          </li>
+          <li>
+            <Link to="/pdf-document3">pdf-document3</Link>
+          </li>
+          <li>
+            <Link to="/pdf-document4">pdf-document4</Link>
+          </li>
+          <li>
             <button onClick={handleLogOut}>Lot Out</button>
           </li>
         </ul>
