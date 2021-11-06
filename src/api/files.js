@@ -14,6 +14,21 @@ export const getFilesMetaData = async () => {
   }
 };
 
+export const getConsultAudioFile = async () => {
+  try {
+    const response = await axiosWrapper({
+      method: "GET",
+      url: "http://localhost:3030/consult/team/1/player/1/information/19/file/14",
+      responseType: "text",
+    });
+    console.log("response", response);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return Promise.reject(err.response);
+  }
+};
+
 export const updateFiles = async (data) => {
   try {
     const response = await axiosWrapper({

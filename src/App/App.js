@@ -18,6 +18,7 @@ import Files from "../components/Files";
 import { Home } from "../components/Home/Home";
 import Notifications from "../components/Notifications/Notifications";
 import Confirm from "../components/Confirm/Confirm";
+import { AudioFile } from "../components/AudioFile";
 const queryClient = new QueryClient();
 
 export default function App() {
@@ -35,6 +36,9 @@ export default function App() {
             <PublicRoute path={"/confirm"} layout={PublicLayout}>
               <Confirm />
             </PublicRoute>
+            <PrivateRoute path={"/audio"} layout={PrivateLayout}>
+              <AudioFile />
+            </PrivateRoute>
             <PrivateRoute path={"/home"} layout={PrivateLayout}>
               <Home />
             </PrivateRoute>

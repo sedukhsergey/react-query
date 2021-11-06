@@ -29,6 +29,9 @@ const NavBar = () => {
             <Link to="/notifications">Notifications</Link>
           </li>
           <li>
+            <Link to="/audio">Audio</Link>
+          </li>
+          <li>
             <button onClick={handleLogOut}>Lot Out</button>
           </li>
         </ul>

@@ -38,7 +38,7 @@ export const loginConfirm = async (data) => {
       method: "POST",
       headers: {
         Confirm:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyQWdlbnQiOiJ3ZWItYXBwbGljYXRpb24iLCJlbWFpbCI6InNlZHVraHNlcmdleUBnbWFpbC5jb20iLCJhdXRoTWV0aG9kIjoiYmFzaWMiLCJpc1JlbWVtYmVyTWUiOnRydWUsImlhdCI6MTYzMzYyMTQ3NSwiZXhwIjoxNjMzNzA3ODc1fQ.9Wo3lQjXtpJpxZeAdPPeYiMbJ_lpxhNcGbJEDkcneQg",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyQWdlbnQiOiJ3ZWItYXBwbGljYXRpb24iLCJlbWFpbCI6InNlZHVraHNlcmdleUBnbWFpbC5jb20iLCJhdXRoTWV0aG9kIjoiYmFzaWMiLCJpc1JlbWVtYmVyTWUiOnRydWUsImlhdCI6MTYzMzg2MzMzNCwiZXhwIjoxNjMzOTQ5NzM0fQ.-ikog2iCbr7cXhGywBbahtp9kcjrpCA6U2cdmIz23aw",
       },
       url: "http://localhost:3030/auth/log-in-confirm",
       responseType: "json",
