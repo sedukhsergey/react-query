@@ -1,5 +1,20 @@
 import axiosWrapper from "./axiosInterceptor";
 
+export const getPublicFile = async (url) => {
+  try {
+    const response = await axiosWrapper({
+      method: "GET",
+      url,
+      // responseType: "json",
+    });
+    console.log("response", response);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return Promise.reject(err.response);
+  }
+};
+
 export const getFilesMetaData = async () => {
   try {
     const response = await axiosWrapper({

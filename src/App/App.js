@@ -28,6 +28,9 @@ export default function App() {
       <ThemeContext.Provider value={useTheme()}>
         <Router>
           <Switch>
+            <Route path={"/notifications"}>
+              <Notifications />
+            </Route>
             <PublicRoute path={"/registration"} layout={PublicLayout}>
               <Registrtaion />
             </PublicRoute>
@@ -52,9 +55,9 @@ export default function App() {
             <PrivateRoute path={"/files"} layout={PrivateLayout}>
               <Files />
             </PrivateRoute>
-            <PrivateRoute path={"/notifications"} layout={PrivateLayout}>
-              <Notifications />
-            </PrivateRoute>
+            {/*<PrivateRoute path={"/notifications"} layout={PrivateLayout}>*/}
+            {/*  <Notifications />*/}
+            {/*</PrivateRoute>*/}
             <Route exact path={"/example"}>
               <Example />
             </Route>
